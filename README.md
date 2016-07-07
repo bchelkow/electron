@@ -1,1 +1,3 @@
-electron
+electron quick start example
+
+    sh start.sh

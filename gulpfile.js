@@ -12,7 +12,6 @@ const config = {
   sourceDir  : 'app',
   buildDir   : 'build',
   npmDir     : 'node_modules',
-  bowerDir   : 'bower_components',
   packagesDir: 'packages'
 };
 
@@ -62,40 +61,17 @@ gulp.task('package', [
   'package:windows'
 ]);
 
-gulp.task('lib:dependencies', function () {
-  return gulp.src([
-    config.bowerDir + '/jquery/dist/jquery.min.js',
-    config.bowerDir + '/bootstrap-sass/assets/javascripts/bootstrap.min.js'
-  ])
-             .pipe(gulp.dest(config.sourceDir + '/lib'));
-});
-
-gulp.task('lib:sass', function () {
+gulp.task('sass', function () {
   return gulp.src(config.sourceDir + '/styles/scss/**/*.scss')
              .pipe(sass({
-               style       : 'compressed',
-               includePaths: [
-                 config.sourceDir + '/styles/scss',
-                 config.bowerDir + '/bootstrap-sass/assets/stylesheets'
-               ]
+               style       : 'compressed'
              })
                .on('error', sass.logError))
              .pipe(gulp.dest(config.sourceDir + '/styles/css'));
 });
 
-gulp.task('lib', [
-  'lib:dependencies',
-  'lib:sass'
-]);
-
-gulp.task('watch', ['lib'], function () {
-  gulp.watch([
-    config.sourceDir + '/**/*',
-    config.bowerDir + '/bootstrap-sass/assets/stylesheets/**/*'
-  ], [
-    'lib',
-    runElectron.rerun
-  ]);
+gulp.task('watch', ['sass'], function () {
+  gulp.watch(config.sourceDir + '/**/*', ['sass', runElectron.rerun]);
 });
 
 gulp.task('default', ['watch'], function () {

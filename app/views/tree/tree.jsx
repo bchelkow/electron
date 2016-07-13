@@ -1,20 +1,36 @@
 import React from 'react';
+import Directory from '../../controllers/directory';
 
 export default class Tree extends React.Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      directory: Directory.current
+    };
+  }
+  
+  componentDidMount() {
+    Directory.subscribe((directory) => {
+      this.setState({
+        directory: directory
+      });
+    });
+  }
+
+  componentWillUnmount() {
+    Directory.unsubscribe();
+  }
+
   render() {
     return (
-      <div className="row">
-        <div className="col-xs-12">
-          <input type="file"/>
-        </div>
-        <div className="col-xs-12">
-          <ul>
-            <li>qwe</li>
-            <li>asd</li>
-            <li>zxc</li>
-          </ul>
-        </div>
-      </div>
+      <ul>
+        {this.state.directory}
+        <li>qwe</li>
+        <li>qwe</li>
+        <li>asd</li>
+        <li>zxc</li>
+      </ul>
     );
   }
 }

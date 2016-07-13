@@ -63,9 +63,7 @@ gulp.task('package', [
 
 gulp.task('sass', function () {
   return gulp.src(config.sourceDir + '/styles/scss/**/*.scss')
-             .pipe(sass({
-               style       : 'compressed'
-             })
+             .pipe(sass({ style: 'compressed' })
                .on('error', sass.logError))
              .pipe(gulp.dest(config.sourceDir + '/styles/css'));
 });

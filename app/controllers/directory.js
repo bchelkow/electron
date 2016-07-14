@@ -36,8 +36,8 @@ class Files {
   readFiles(inDirectory) {
     let directory = this._directory;
 
-    if (inDirectory) {
-      directory = _.join([directory, inDirectory], '/');
+    if (inDirectory && inDirectory.length > 0) {
+      directory = _.join([directory, _.join(inDirectory, '/')], '/');
     }
 
     _.each(fs.readdirSync(directory), (file) => {
@@ -51,7 +51,7 @@ class Files {
       }
 
       if (inDirectory) {
-        let split = _.split(inDirectory, '/');
+        let split = _.clone(inDirectory);
         filePath = split.concat(filePath);
       }
 

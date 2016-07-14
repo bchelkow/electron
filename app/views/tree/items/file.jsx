@@ -2,8 +2,12 @@ import React from 'react';
 
 export default class FileItem extends React.Component {
   render() {
+    const directory = [this.props.directory, this.props.path.join('/')].join('/');
+    const type = this.props.type;
+    
+    
     return (
-      <li>File {this.props.name}</li>
+      <li>{this.props.name}</li>
     );
   }
 }

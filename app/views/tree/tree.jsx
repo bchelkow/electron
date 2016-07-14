@@ -1,9 +1,7 @@
 import React from 'react';
 import { _ } from 'lodash';
-import Random from '../../helpers/random';
 import Directory from '../../controllers/directory';
-import FileItem from './items/file';
-import DirectoryItem from './items/directory';
+import TreeBranch from './items/branch';
 
 export default class Tree extends React.Component {
   constructor(props) {
@@ -33,27 +31,11 @@ export default class Tree extends React.Component {
     Directory.Files.unsubscribe();
   }
 
-  getDirectories() {
-    const directories = _.pickBy(this.state.files, _.isObject);
-    
-    return _.map(directories, (directory, key) => {
-      return <DirectoryItem key={Random.id()} name={key} />
-    });
-  }
-
-  getFiles() {
-    const files = _.pickBy(this.state.files, _.isString);
-
-    return _.map(files, (directory, key) => {
-      return <FileItem key={Random.id()} name={key} />
-    });
-  }
-
   render() {
     return (
       <ul>
-        {this.getDirectories()}
-        {this.getFiles()}
+        <TreeBranch name={_.last(_.split(this.state.directory, '/'))} path={[]} directory={this.state.directory}
+                    files={this.state.files}/>
       </ul>
     );
   }

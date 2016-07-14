@@ -33,10 +33,12 @@ export default class Tree extends React.Component {
 
   render() {
     return (
-      <ul>
-        <TreeBranch name={_.last(_.split(this.state.directory, '/'))} path={[]} directory={this.state.directory}
-                    files={this.state.files}/>
-      </ul>
+      <div className="tree-wrapper">
+        <ul className="tree">
+          <TreeBranch name={_.last(_.split(this.state.directory, '/'))} path={[]} directory={this.state.directory}
+                      files={this.state.files}/>
+        </ul>
+      </div>
     );
   }
 }

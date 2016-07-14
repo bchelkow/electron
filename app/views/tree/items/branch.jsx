@@ -4,6 +4,14 @@ import FileItem from './file';
 import Directory from '../../../controllers/directory';
 
 export default class TreeBranch extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      hidden: true
+    };
+  }
+
   getTreeBranches() {
     const directories = _.pickBy(this.props.files, _.isObject);
 
@@ -19,7 +27,17 @@ export default class TreeBranch extends React.Component {
   }
 
   onTreeBranchClick(path) {
-    Directory.Files.readFiles(path);
+    if (this.state.hidden) {
+      Directory.Files.readFiles(path);
+      this.setState({
+        hidden: false
+      });
+    } else {
+      Directory.Files.unsetPath(path);
+      this.setState({
+        hidden: true
+      });
+    }
   }
 
   getFiles() {
@@ -36,9 +54,15 @@ export default class TreeBranch extends React.Component {
   }
 
   render() {
+    const className = this.state.hidden ? 'tree--hidden' : '';
+
     return (
       <li>
-        <ul><a onClick={this.onTreeBranchClick.bind(this, this.props.path)}>{this.props.name}</a>
+        <span onClick={this.onTreeBranchClick.bind(this, this.props.path)}>
+          <i className="fa fa-fw fa-folder"/>
+          {this.props.name}
+        </span>
+        <ul className={className}>
           {this.getTreeBranches()}
           {this.getFiles()}
         </ul>

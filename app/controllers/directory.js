@@ -60,9 +60,9 @@ class Files {
     this._emitter.emit(FILES_CHANGE);
   }
 
-  _unsetFile(filePath) {
-    _.unset(this._files, filePath);
-    this._emitter._emit(FILES_CHANGE, filePath);
+  unsetPath(filePath) {
+    _.set(this._files, filePath, {});
+    this._emitter.emit(FILES_CHANGE, filePath);
   }
 
   get all() {

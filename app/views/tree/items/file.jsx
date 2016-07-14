@@ -7,7 +7,7 @@ export default class FileItem extends React.Component {
     
     
     return (
-      <li>{this.props.name}</li>
+      <li><i className="fa fa-fw fa-file"/>{this.props.name}</li>
     );
   }
 }

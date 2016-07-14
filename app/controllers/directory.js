@@ -5,16 +5,21 @@ import fs from 'fs-plus';
 
 const DIRECTORY_CHANGE = 'directory-change';
 const FILES_CHANGE = 'files-change';
+const CURRENT_FILE_CHANGE = 'current-file-change';
 
 class Files {
   constructor(directory = null) {
     this._files = {};
     this._directory = directory;
     this._emitter = new EventEmitter();
+    this._current = null;
   }
 
   clear() {
     this._files = {};
+    this._emitter.emit(FILES_CHANGE);
+    this._current = null;
+    this._emitter.emit(CURRENT_FILE_CHANGE);
   }
 
   setDirectory(directory) {
@@ -75,6 +80,23 @@ class Files {
 
   unsubscribe(callback) {
     this._emitter.removeListener(FILES_CHANGE, callback);
+  }
+
+  set current(file) {
+    this._current = file;
+    this._emitter.emit(CURRENT_FILE_CHANGE, file);
+  }
+  
+  get current() {
+    return this._current;
+  }
+  
+  subscribeCurrent(callback) {
+    this._emitter.on(CURRENT_FILE_CHANGE, callback);
+  }
+
+  unsubscribeCurrent(callback) {
+    this._emitter.removeListener(CURRENT_FILE_CHANGE, callback);
   }
 }
 

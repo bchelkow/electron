@@ -2,6 +2,7 @@ import React from 'react';
 
 import Directory from '../../controllers/directory';
 import Tree from '../tree/tree';
+import Editor from '../editor/editor';
 
 export default class Main extends React.Component {
   constructor(props) {
@@ -36,7 +37,9 @@ export default class Main extends React.Component {
           <div className="col-xs-3">
             <Tree />
           </div>
-          <div className="col-xs-9"></div>
+          <div className="col-xs-9">
+            <Editor />
+          </div>
         </div>
       </div>
     );

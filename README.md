@@ -1,11 +1,4 @@
-electron + react app, to run write in app/
+electron + react app
 
-    sh start.sh
-
-To build electron for mac install gulp
-    
-    sh install-gulp.sh
-    
-and use gulpfile
-
-    gulp
+    npm install
+    npm start
